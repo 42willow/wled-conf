@@ -1,9 +1,18 @@
 {pkgs ? import <nixpkgs> {}}: let
 in
   pkgs.mkShell {
+    packages = [
+      (pkgs.python3.withPackages (python-pkgs:
+        with python-pkgs; [
+          pip
+          pyyaml
+          zopfli
+          wheel
+        ]))
+    ];
     buildInputs = [
-      pkgs.python39
-      pkgs.python39Packages.pip
+      pkgs.python3
+
       pkgs.platformio
       # optional: for esp32
       pkgs.avrdude
